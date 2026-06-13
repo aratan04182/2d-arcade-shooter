@@ -101,3 +101,4 @@ class Enemy:
                 5
             )
         )
+self.weapon = 0
