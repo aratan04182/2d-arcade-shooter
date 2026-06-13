@@ -101,3 +101,4 @@ class Enemy:
                 5
             )
         )
+self.drop_rate = 0.2
