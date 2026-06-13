@@ -86,3 +86,4 @@ class Player:
             (int(self.x), int(self.y - 8)),
             4
         )
+self.weapon = 0
