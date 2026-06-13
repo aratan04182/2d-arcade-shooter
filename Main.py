@@ -226,3 +226,8 @@ if shoot_timer > player.fire_rate:
     pygame.display.flip()
 
 pygame.quit()
+import random
+
+if random.random() < 0.3:
+    # アイテムドロップ（簡易）
+    player.hp = min(player.max_hp, player.hp + 10)
