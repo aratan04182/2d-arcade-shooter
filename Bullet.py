@@ -17,13 +17,13 @@ class Bullet:
         dx = target_x - x
         dy = target_y - y
 
-        distance = math.hypot(dx, dy)
+        dist = math.hypot(dx, dy)
 
-        if distance == 0:
-            distance = 1
+        if dist == 0:
+            dist = 1
 
-        self.vx = dx / distance * self.speed
-        self.vy = dy / distance * self.speed
+        self.vx = dx / dist * self.speed
+        self.vy = dy / dist * self.speed
 
     def update(self):
 
@@ -33,19 +33,8 @@ class Bullet:
     def draw(self, screen):
 
         pygame.draw.circle(
-
             screen,
-
             (255, 255, 0),
-
-            (
-
-                int(self.x),
-
-                int(self.y)
-
-            ),
-
+            (int(self.x), int(self.y)),
             self.radius
-
         )
