@@ -87,34 +87,45 @@ while running:
     # -------------------------
     # 自動射撃
     # -------------------------
-    shoot_timer += dt
+    # 自動射撃（強化版）
+shoot_timer += dt
 
-    if shoot_timer > player.fire_rate:
+if shoot_timer > player.fire_rate:
 
-        shoot_timer = 0
+    shoot_timer = 0
 
-        targets = enemies[:]
+    targets = enemies[:]
 
-        if boss is not None:
-            targets.append(boss)
+    if boss:
+        targets.append(boss)
 
-        if targets:
+    if targets:
 
-            nearest = min(
-                targets,
-                key=lambda o: math.hypot(o.x - player.x, o.y - player.y)
-            )
+        nearest = min(
+            targets,
+            key=lambda o: ((o.x - player.x)**2 + (o.y - player.y)**2)
+        )
 
+        # 武器別射撃
+        if player.weapon == 0:
+            # ピストル
             bullets.append(
-                Bullet(
-                    player.x,
-                    player.y,
-                    nearest.x,
-                    nearest.y,
-                    player.damage
-                )
+                Bullet(player.x, player.y, nearest.x, nearest.y, player.damage)
             )
 
+        elif player.weapon == 1:
+            # ショットガン（3発）
+            for a in [-10, 0, 10]:
+                bullets.append(
+                    Bullet(player.x, player.y, nearest.x, nearest.y, player.damage, a)
+                )
+
+        elif player.weapon == 2:
+            # マシンガン（連射強化）
+            for _ in range(2):
+                bullets.append(
+                    Bullet(player.x, player.y, nearest.x, nearest.y, player.damage)
+                )
     # -------------------------
     # 更新
     # -------------------------
