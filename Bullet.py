@@ -3,20 +3,27 @@ import math
 
 class Bullet:
 
-    def __init__(self, x, y, tx, ty):
+    def __init__(self, x, y, target_x, target_y, damage):
 
         self.x = x
         self.y = y
 
-        dx = tx - x
-        dy = ty - y
+        self.damage = damage
 
-        d = math.sqrt(dx*dx + dy*dy)
+        self.radius = 5
 
-        self.vx = dx / d * 8
-        self.vy = dy / d * 8
+        self.speed = 10
 
-        self.size = 5
+        dx = target_x - x
+        dy = target_y - y
+
+        distance = math.hypot(dx, dy)
+
+        if distance == 0:
+            distance = 1
+
+        self.vx = dx / distance * self.speed
+        self.vy = dy / distance * self.speed
 
     def update(self):
 
@@ -26,8 +33,19 @@ class Bullet:
     def draw(self, screen):
 
         pygame.draw.circle(
+
             screen,
+
             (255, 255, 0),
-            (int(self.x), int(self.y)),
-            self.size
+
+            (
+
+                int(self.x),
+
+                int(self.y)
+
+            ),
+
+            self.radius
+
         )
