@@ -3,7 +3,7 @@ import math
 
 class Bullet:
 
-    def __init__(self, x, y, target_x, target_y, damage):
+    def __init__(self, x, y, tx, ty, damage, angle_offset=0):
 
         self.x = x
         self.y = y
@@ -14,16 +14,18 @@ class Bullet:
 
         self.speed = 10
 
-        dx = target_x - x
-        dy = target_y - y
+        dx = tx - x
+        dy = ty - y
 
         dist = math.hypot(dx, dy)
-
         if dist == 0:
             dist = 1
 
-        self.vx = dx / dist * self.speed
-        self.vy = dy / dist * self.speed
+        # 角度補正（ショットガン用）
+        angle = math.atan2(dy, dx) + math.radians(angle_offset)
+
+        self.vx = math.cos(angle) * self.speed
+        self.vy = math.sin(angle) * self.speed
 
     def update(self):
 
